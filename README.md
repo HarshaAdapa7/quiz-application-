@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 =======
 <div align="center">
   <img src="https://img.icons8.com/color/96/000000/learning.png" alt="Logo">
@@ -13,7 +13,7 @@
 <hr />
 
 ## 📖 Overview
->>>>>>> 9b582cf ( updated some code)
+
 
 The **Advanced Quiz Platform**, engineered by **Harsha Adapa**, is a robust, full-stack web application designed to gamify learning and facilitate interactive assessments. Built with **React** on the frontend and **Spring Boot** on the backend, this platform provides an enterprise-ready experience for both **Educators** and **Students**.
 
@@ -23,7 +23,7 @@ With a premium "glassmorphism" aesthetic, the application goes beyond basic quiz
 
 ## ✨ Core Functionalities & Features Developed by Harsha Adapa
 
-<<<<<<< HEAD
+
 ### Dual-Role Architecture
 - ** Teacher Portal**: 
   - Effortless quiz builder with timed limits.
@@ -55,18 +55,18 @@ With a premium "glassmorphism" aesthetic, the application goes beyond basic quiz
 - **Streaks & Badges**: Daily login & completion streaks to encourage consistent learning habits, with visually stunning CSS badges.
 - **Dynamic Confetti Feedback**: "Wow factor" responsive confetti drops when achieving 100% on a quiz assessment.
 
-<<<<<<< HEAD
+
 ###  Real-Time Multiplayer Arena
 - Built with **Spring Boot WebSockets (STOMP)**.
 =======
 ### 🌐 Real-Time Multiplayer Arena
 - Built with **Spring Boot WebSockets (STOMP)** for full-duplex communication.
->>>>>>> 9b582cf ( updated some code)
+
 - Teachers can initiate a "Live Quiz Event", generating a unique 4-digit room code.
 - Students join the lobby, wait for the host, and compete synchronously.
 - Live, real-time scoreboard updates broadcasted to all participants over WebSockets, complete with auto-scrolling live web-chat.
 
-<<<<<<< HEAD
+
 
 ## Technology Stack
 =======
@@ -78,7 +78,7 @@ With a premium "glassmorphism" aesthetic, the application goes beyond basic quiz
 ---
 
 ## 🛠️ Technology Stack & Architecture
->>>>>>> 9b582cf ( updated some code)
+
 
 ### Backend (Developed by Harsha Adapa)
 - **Java 17 & Spring Boot 3**: Core backend architecture for secure REST APIs.
