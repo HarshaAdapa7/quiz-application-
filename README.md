@@ -50,7 +50,7 @@ With a premium "glassmorphism" aesthetic, the application goes beyond basic quiz
 
 ### 🎮 Gamification & Engagement
 - **Dynamic Leaderboard**: An advanced podium-style global leaderboard highlighting Top 3 players in gold/silver/bronze, alongside a fully ranked chronological list.
->>>>>>> 9b582cf ( updated some code)
+
 - **Experience & Leveling**: Earn XP for every correct answer, leveling up as you conquer more content.
 - **Streaks & Badges**: Daily login & completion streaks to encourage consistent learning habits, with visually stunning CSS badges.
 - **Dynamic Confetti Feedback**: "Wow factor" responsive confetti drops when achieving 100% on a quiz assessment.
