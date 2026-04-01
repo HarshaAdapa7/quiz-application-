@@ -126,14 +126,6 @@ npm run dev
 ```
 *The web client will compile and launch instantly at `http://localhost:5173/`.*
 
----
-
-<<<<<<< HEAD
-## Platform Previews
-=======
-## 🤝 Validation of Internship Requirements
->>>>>>> 9b582cf ( updated some code)
-
 **Submitted by:** Harsha Adapa
 **Project Type:** Full-Stack Web Development 
 
@@ -144,9 +136,3 @@ This complete repository source code proves mastery over:
 4. Competence in writing **Complex Data Models and DTOs**.
 5. Empathy for modern, industry-standard **Responsive Frontend Experience**.
 
-<<<<<<< HEAD
----
-
-=======
-*All rights, implementations, and design logic authored by Harsha Adapa.*
->>>>>>> 9b582cf ( updated some code)
