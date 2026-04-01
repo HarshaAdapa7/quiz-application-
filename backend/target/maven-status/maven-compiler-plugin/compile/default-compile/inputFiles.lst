@@ -8,6 +8,7 @@ C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\dto\JwtResponse.java
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\dto\LoginRequest.java
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\dto\MessageResponse.java
+C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\dto\ProfileUpdateRequest.java
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\dto\SignupRequest.java
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\dto\StudentProgressDTO.java
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\dto\TeacherAnalyticsDTO.java
@@ -24,6 +25,7 @@ C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\models\Role.java
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\models\User.java
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\repositories\AttemptAnswerRepository.java
+C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\repositories\BadgeRepository.java
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\repositories\OptionRepository.java
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\repositories\QuestionRepository.java
 C:\Users\harsh\Documents\quiz project\backend\src\main\java\com\quizapp\backend\repositories\QuizAttemptRepository.java

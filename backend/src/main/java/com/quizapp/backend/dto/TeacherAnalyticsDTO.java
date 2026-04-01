@@ -1,17 +1,16 @@
 package com.quizapp.backend.dto;
 
-import com.quizapp.backend.models.Category;
 import java.util.Map;
 
 public class TeacherAnalyticsDTO {
     private int totalQuizzes;
     private int activeStudents;
     private double averageScore;
-    private Map<Category, Double> categoryAccuracy;
+    private Map<String, Double> categoryAccuracy;
 
     public TeacherAnalyticsDTO() {}
 
-    public TeacherAnalyticsDTO(int totalQuizzes, int activeStudents, double averageScore, Map<Category, Double> categoryAccuracy) {
+    public TeacherAnalyticsDTO(int totalQuizzes, int activeStudents, double averageScore, Map<String, Double> categoryAccuracy) {
         this.totalQuizzes = totalQuizzes;
         this.activeStudents = activeStudents;
         this.averageScore = averageScore;
@@ -27,6 +26,6 @@ public class TeacherAnalyticsDTO {
     public double getAverageScore() { return averageScore; }
     public void setAverageScore(double averageScore) { this.averageScore = averageScore; }
     
-    public Map<Category, Double> getCategoryAccuracy() { return categoryAccuracy; }
-    public void setCategoryAccuracy(Map<Category, Double> categoryAccuracy) { this.categoryAccuracy = categoryAccuracy; }
+    public Map<String, Double> getCategoryAccuracy() { return categoryAccuracy; }
+    public void setCategoryAccuracy(Map<String, Double> categoryAccuracy) { this.categoryAccuracy = categoryAccuracy; }
 }

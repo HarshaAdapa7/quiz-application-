@@ -4,8 +4,10 @@ import { getAvailableQuizzes, submitAttempt, getMyAttempts } from '../../service
 import { getUserProfile, getLeaderboard } from '../../services/userService';
 import { useNavigate } from 'react-router-dom';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { Trophy, Clock, Target, LogOut, LayoutDashboard, ChevronRight, CheckCircle, Award, Activity, Flame, Star } from 'lucide-react';
+import confetti from 'canvas-confetti';
+import { Trophy, Clock, Target, LogOut, LayoutDashboard, ChevronRight, CheckCircle, Award, Activity, Flame, Star, Settings, Bell } from 'lucide-react';
 import AdvancedLeaderboard from '../../components/AdvancedLeaderboard';
+import ProfileSettings from '../../components/ProfileSettings';
 
 
 
@@ -90,6 +92,17 @@ const StudentDashboard = () => {
         startTime: quizStartTime,
         score: calculatedScore
       });
+
+      // Gamification Wow Factor: Confetti on perfect score
+      if (calculatedScore === activeQuiz.questions.length && activeQuiz.questions.length > 0) {
+        confetti({
+          particleCount: 150,
+          spread: 80,
+          origin: { y: 0.6 },
+          colors: ['#fbc531', '#1dd1a1', '#ff4757', '#48dbfb']
+        });
+      }
+
       setActiveQuiz(null);
       fetchData(); 
     } catch(err) {
@@ -237,11 +250,22 @@ const StudentDashboard = () => {
   }
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
-      <div className="glass-panel" style={{ width: '250px', margin: '1rem', display: 'flex', flexDirection: 'column' }}>
-        <h2 style={{ marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <LayoutDashboard color="var(--primary-color)"/> Student
-        </h2>
+    <div className="app-layout">
+      <div className="glass-panel sidebar-panel">
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '2rem' }}>
+          {profile?.username ? (
+            <img 
+              src={profile.avatarUrl || `https://ui-avatars.com/api/?name=${profile.username}&background=random&color=fff&bold=true&length=1`} 
+              alt="Avatar"
+              style={{ width: '80px', height: '80px', borderRadius: '50%', marginBottom: '10px', border: '3px solid rgba(255,255,255,0.1)' }}
+            />
+          ) : (
+            <LayoutDashboard size={48} color="var(--text-muted)" style={{ marginBottom: '10px' }}/>
+          )}
+          <h2 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--primary-color)' }}>
+            {profile?.username || 'Student'}
+          </h2>
+        </div>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
           <button className={`btn ${activeTab !== 'dashboard' && 'btn-secondary'}`} onClick={() => setActiveTab('dashboard')}>
@@ -253,7 +277,12 @@ const StudentDashboard = () => {
           <button className={`btn ${activeTab !== 'leaderboard' && 'btn-secondary'}`} onClick={() => setActiveTab('leaderboard')}>
             Leaderboard
           </button>
-
+          <button className={`btn ${activeTab !== 'profile' && 'btn-secondary'}`} onClick={() => setActiveTab('profile')}>
+            <Settings size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }}/> Profile Settings
+          </button>
+          <button className={`btn ${activeTab !== 'notifications' && 'btn-secondary'}`} onClick={() => setActiveTab('notifications')}>
+            <Bell size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }}/> Notifications
+          </button>
         </div>
 
         <button className="btn btn-secondary" style={{ border: 'none' }} onClick={() => { logout(); navigate('/login'); }}>
@@ -261,11 +290,11 @@ const StudentDashboard = () => {
         </button>
       </div>
 
-      <div style={{ flex: 1, padding: '1rem', overflowY: 'auto' }}>
+      <div className="main-content">
         <div className="glass-panel" style={{ minHeight: 'calc(100vh - 2rem)' }}>
           {activeTab === 'dashboard' && (
             <div style={{ animation: 'fadeIn 0.5s ease' }}>
-              <h2 style={{ marginBottom: '1.5rem', fontWeight: 600 }}>Welcome Back! Ready to learn?</h2>
+              <h2 style={{ marginBottom: '1.5rem', fontWeight: 600 }}>Welcome back{profile?.username ? `, ${profile.username}` : ''}! Ready to learn?</h2>
               
               <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
                 <div className="glass-panel glass-card" style={{ flex: '1 1 200px', padding: '1.5rem', background: 'rgba(255,255,255,0.02)', display: 'flex', alignItems: 'center', gap: '20px' }}>
@@ -367,6 +396,23 @@ const StudentDashboard = () => {
                  </div>
               )}
 
+              {profile?.badges && profile.badges.length > 0 && (
+                <div style={{ marginBottom: '2.5rem', animation: 'fadeIn 0.5s ease' }}>
+                  <h3 style={{ fontWeight: 500, marginBottom: '1rem' }}>Earned Badges <span style={{fontSize: '0.9rem', color: 'var(--text-muted)'}}>({profile.badges.length})</span></h3>
+                  <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+                    {profile.badges.map(badge => (
+                      <div key={badge.id} className="glass-panel glass-card" style={{ display: 'flex', alignItems: 'center', gap: '15px', padding: '12px 20px', background: 'rgba(251, 197, 49, 0.05)', border: '1px solid rgba(251, 197, 49, 0.2)' }}>
+                        <div style={{ fontSize: '2rem', filter: 'drop-shadow(0 0 10px rgba(251, 197, 49, 0.5))' }}>{badge.iconUrl}</div>
+                        <div>
+                          <strong style={{ display: 'block', fontSize: '1rem', color: '#fbc531' }}>{badge.name}</strong>
+                          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{badge.description}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <h3 style={{ fontWeight: 500 }}>Assigned Quizzes</h3>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px', marginTop: '1.5rem' }}>
                 
@@ -461,6 +507,27 @@ const StudentDashboard = () => {
               </h2>
               <AdvancedLeaderboard data={leaderboard} />
             </div>
+          )}
+
+          {activeTab === 'notifications' && (
+            <div style={{ animation: 'fadeIn 0.5s ease' }}>
+              <h2 style={{ marginBottom: '1.5rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Bell color="var(--primary-color)"/> Notifications
+              </h2>
+              <div className="glass-panel glass-card" style={{ padding: '4rem 2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+                <CheckCircle size={48} style={{ opacity: 0.2, margin: '0 auto 10px auto' }} />
+                <p style={{ fontSize: '1.2rem' }}>You're all caught up!</p>
+                <p>No new notifications at this time.</p>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'profile' && (
+            <ProfileSettings 
+              userProfile={profile} 
+              userId={getCurrentUser()?.id} 
+              onProfileUpdated={fetchData} 
+            />
           )}
         </div>
       </div>

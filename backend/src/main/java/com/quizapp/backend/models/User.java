@@ -44,6 +44,9 @@ public class User {
     @Column(name = "last_active_date")
     private LocalDate lastActiveDate;
 
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "user_badges",
@@ -86,7 +89,11 @@ public class User {
     public LocalDate getLastActiveDate() { return lastActiveDate; }
     public void setLastActiveDate(LocalDate lastActiveDate) { this.lastActiveDate = lastActiveDate; }
     
+    
     public Set<Badge> getBadges() { return badges; }
     public void setBadges(Set<Badge> badges) { this.badges = badges; }
+    
+    public String getAvatarUrl() { return avatarUrl; }
+    public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
 }
 

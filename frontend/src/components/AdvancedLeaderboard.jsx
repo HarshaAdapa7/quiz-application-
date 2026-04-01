@@ -73,9 +73,11 @@ const AdvancedLeaderboard = ({ data }) => {
                   <div style={{ position: 'absolute', top: '-15px', animation: 'bounce 2s infinite ease-in-out' }}>
                     {styles.icon}
                   </div>
-                  <span style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fff' }}>
-                    {user.username.charAt(0).toUpperCase()}
-                  </span>
+                  <img 
+                    src={`https://ui-avatars.com/api/?name=${user.username}&background=random&color=fff&bold=true&length=1`} 
+                    alt={user.username}
+                    style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
+                  />
                 </div>
 
                 <div style={{ textAlign: 'center', marginBottom: '10px', zIndex: 2 }}>
@@ -161,7 +163,11 @@ const AdvancedLeaderboard = ({ data }) => {
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   marginRight: '15px', color: 'var(--text-main)', fontWeight: 'bold'
                 }}>
-                  {user.username.charAt(0).toUpperCase()}
+                  <img 
+                    src={`https://ui-avatars.com/api/?name=${user.username}&background=random&color=fff&bold=true&length=1`} 
+                    alt={user.username}
+                    style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }}
+                  />
                 </div>
 
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>

@@ -18,6 +18,13 @@ const LiveArena = () => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
   
+  const messagesEndRef = useRef(null);
+
+  // Auto-scroll chat when new messages arrive
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+  
   // Host state
   const [hostQuestionInput, setHostQuestionInput] = useState('');
   const [hostOptions, setHostOptions] = useState([{text: '', isCorrect: true}, {text: '', isCorrect: false}]);
@@ -125,6 +132,7 @@ const LiveArena = () => {
 
         <div style={{ height: '150px', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', padding: '10px', overflowY: 'auto', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
           {messages.map((m, i) => <div key={i} style={{marginBottom: '5px'}}>{m}</div>)}
+          <div ref={messagesEndRef} />
         </div>
       </div>
 

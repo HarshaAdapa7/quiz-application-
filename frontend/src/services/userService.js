@@ -7,3 +7,7 @@ export const getUserProfile = (userId) => {
 export const getLeaderboard = () => {
   return api.get('/users/leaderboard');
 };
+
+export const updateUserProfile = (userId, data) => {
+  return api.put(`/users/${userId}/profile`, data);
+};

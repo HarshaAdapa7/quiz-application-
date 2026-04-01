@@ -1,12 +1,29 @@
+<<<<<<< HEAD
+=======
+<div align="center">
+  <img src="https://img.icons8.com/color/96/000000/learning.png" alt="Logo">
+  <h1>🚀 Advanced Quiz & Gamification Platform</h1>
+  <p><strong>A Full-Stack Interactive Learning Arena by Harsha Adapa</strong></p>
+  <p>
+    <strong>Internship Project Submission</strong><br/>
+    Developed independently by <b>Harsha Adapa</b>. Built focusing on Real-Time Multiplayer, Advanced Analytics, and Premium UI/UX.
+  </p>
+</div>
 
-The **Advanced Quiz Platform** is a robust, full-stack web application designed to gamify learning and facilitate interactive assessments. Built with **React** on the frontend and **Spring Boot** on the backend, this platform provides a seamless experience for both **Teachers** and **Students**.
+<hr />
 
-With a beautiful "glassmorphism" aesthetic, the application goes beyond basic quizzes by incorporating real-time multiplayer arenas, an intricate gamification system (XP, Levels, Streaks), and actionable visual analytics for educators.
+## 📖 Overview
+>>>>>>> 9b582cf ( updated some code)
+
+The **Advanced Quiz Platform**, engineered by **Harsha Adapa**, is a robust, full-stack web application designed to gamify learning and facilitate interactive assessments. Built with **React** on the frontend and **Spring Boot** on the backend, this platform provides an enterprise-ready experience for both **Educators** and **Students**.
+
+With a premium "glassmorphism" aesthetic, the application goes beyond basic quizzes by incorporating real-time multiplayer arenas via WebSockets, an intricate gamification system (XP, Levels, Streaks, dynamic Badges, Profile Avatars), and actionable visual analytics for educators using modern charting technologies.
 
 ---
 
-## ✨ Core Features
+## ✨ Core Functionalities & Features Developed by Harsha Adapa
 
+<<<<<<< HEAD
 ### Dual-Role Architecture
 - ** Teacher Portal**: 
   - Effortless quiz builder with timed limits.
@@ -19,73 +36,117 @@ With a beautiful "glassmorphism" aesthetic, the application goes beyond basic qu
 
 ### Gamification & Engagement
 - **Dynamic Leaderboard**: An advanced podium-style global leaderboard highlighting Top 3 players in gold/silver/bronze, alongside a fully ranked list.
-- **Experience & Leveling**: Earn XP for every correct answer, leveling up as you conquer more content.
-- **Streaks**: Daily login & completion streaks to encourage consistent learning habits.
+=======
+### 🎓 Dual-Role Architecture
+- **👨‍🏫 Teacher Portal**: 
+  - Effortless quiz builder with timed limits, automated category mapping, and difficulty scaling.
+  - Comprehensive dashboard offering deep insights into student performance.
+  - Live category-wise accuracy tracking and system-wide metrics (powered by Recharts).
+  - Manage existing students, track platform traffic, and review historical data.
+- **👩‍🎓 Student Portal**:
+  - Personalized dashboard tracking Total XP, current streaks, exact accuracy percentages, and dynamic leveling.
+  - Beautiful visual charts showing performance trends over time.
+  - Interactive Profile Settings with dynamic 3D Avatars (powered by Dicebear) and secure password resets.
 
+### 🎮 Gamification & Engagement
+- **Dynamic Leaderboard**: An advanced podium-style global leaderboard highlighting Top 3 players in gold/silver/bronze, alongside a fully ranked chronological list.
+>>>>>>> 9b582cf ( updated some code)
+- **Experience & Leveling**: Earn XP for every correct answer, leveling up as you conquer more content.
+- **Streaks & Badges**: Daily login & completion streaks to encourage consistent learning habits, with visually stunning CSS badges.
+- **Dynamic Confetti Feedback**: "Wow factor" responsive confetti drops when achieving 100% on a quiz assessment.
+
+<<<<<<< HEAD
 ###  Real-Time Multiplayer Arena
 - Built with **Spring Boot WebSockets (STOMP)**.
+=======
+### 🌐 Real-Time Multiplayer Arena
+- Built with **Spring Boot WebSockets (STOMP)** for full-duplex communication.
+>>>>>>> 9b582cf ( updated some code)
 - Teachers can initiate a "Live Quiz Event", generating a unique 4-digit room code.
 - Students join the lobby, wait for the host, and compete synchronously.
-- Live, real-time scoreboard updates broadcasted to all participants over WebSockets.
+- Live, real-time scoreboard updates broadcasted to all participants over WebSockets, complete with auto-scrolling live web-chat.
 
+<<<<<<< HEAD
 
 ## Technology Stack
-
-### Backend
-- **Java 17 & Spring Boot 3**: Core framework for robust REST APIs.
-- **Spring Security & JWT**: Stateless authentication and protected role-based routes.
-- **Spring Data JPA & Hibernate**: ORM for complex database relationships.
-- **WebSockets / STOMP**: Full-duplex communication channels for the Live Arena.
-- **MySQL**: Relational database managing users, quizzes, tracking, and analytics.
-
-### Frontend
-- **React 18 & Vite**: Lightning-fast build tooling and component-based UI.
-- **React Router v6**: Protected routing with role-based component rendering.
-- **Recharts**: High-performance, declarative charting for student and teacher analytics.
-- **Lucide React**: Beautifully crafted SVG icons.
-- **Axios**: Promised-based HTTP client for API communication.
-- **Vanilla CSS**: Advanced modern layout techniques (Grid/Flexbox) and glassmorphic aesthetics.
+=======
+### 🎨 Premium UI/UX Aesthetic
+- **Glassmorphism**: Sleek, semi-transparent frosted-glass panels on deep, dark-mode backgrounds.
+- **Custom Split-Screen Authentication**: A stunning elite responsive split-screen Login & Registration portal featuring 3D artwork.
+- **Responsive Layouts**: 100% Mobile-first responsive grids and `@media` flexboxes to ensure beautifully scaling dashboards on iOS and Android viewports.
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Technology Stack & Architecture
+>>>>>>> 9b582cf ( updated some code)
+
+### Backend (Developed by Harsha Adapa)
+- **Java 17 & Spring Boot 3**: Core backend architecture for secure REST APIs.
+- **Spring Security & JWT**: Fully stateless authentication and protected role-based web routes (`@PreAuthorize`).
+- **Spring Data JPA & Hibernate**: Object-Relational Mapping (ORM) handling complex database relationships between Quizzes, Questions, Attempts, and Users.
+- **Spring WebSockets / STOMP**: Dedicated `WebSocketConfig` mapping for real-time multiplayer connections over `/live-quiz-ws`.
+- **MySQL**: Relational database managing persistence schemas.
+
+### Frontend (Developed by Harsha Adapa)
+- **React 18 & Vite**: Lightning-fast build tooling and component-based UI.
+- **React Router v6**: Protected routing with intelligent `RequireAuth` boundary logic.
+- **Recharts**: High-performance, declarative visualization charting for analytics.
+- **Lucide React**: Beautifully crafted SVG UI iconography.
+- **Axios**: Promised-based HTTP client managing persistent JWT Interceptor tokens.
+- **canvas-confetti**: Interactive visual reward systems.
+- **Vanilla CSS**: Advanced modern layout techniques achieving responsive glassmorphism securely.
+
+---
+
+## 🚀 Deployment & Setup Instructions
 
 ### Prerequisites
 - JDK 17+ installed.
 - Node.js (v16+) and npm installed.
-- MySQL server running locally.
+- MySQL server running locally (or hosted equivalent).
 
-### 1. Database Setup
-Ensure you have a local MySQL instance running. The Spring Boot application properties (`application.properties`) should reflect your credentials. The database schema (hibernate) will auto-generate upon the first boot.
+### 1. Database Configuration
+Ensure you have a local MySQL instance running. Create a schema matching your credentials in `backend/src/main/resources/application.properties`. Wait for Hibernate to automatically scaffold (`update`) the required tables upon boot.
 
-### 2. Run the Backend (Spring Boot)
+### 2. Run the Backend Server (Spring Boot)
 Open a terminal in the `backend` directory:
 ```bash
 cd backend
 mvn clean install
 mvn spring-boot:run
 ```
-*The server will start on `http://localhost:8080/`.*
+*The REST server and WebSocket broker will initialize on `http://localhost:8080/`.*
 
-### 3. Run the Frontend (React / Vite)
+### 3. Run the Frontend Client (React / Vite)
 Open a new terminal in the `frontend` directory:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-*The application should launch at `http://localhost:5173/`.*
+*The web client will compile and launch instantly at `http://localhost:5173/`.*
 
 ---
 
+<<<<<<< HEAD
 ## Platform Previews
+=======
+## 🤝 Validation of Internship Requirements
+>>>>>>> 9b582cf ( updated some code)
 
-**(Note: Add screenshots here before submission)**
+**Submitted by:** Harsha Adapa
+**Project Type:** Full-Stack Web Development 
 
-- `![Teacher Dashboard](./screenshots/teacher.png)`
-- `![Student Analytics](./screenshots/student.png)`
-- `![Live Arena](./screenshots/arena.png)`
-- `![Podium Leaderboard](./screenshots/leaderboard.png)`
+This complete repository source code proves mastery over:
+1. **Full-Stack Application Architecture** from database schema to UI delivery.
+2. Complete implementation of **Secure JWT Authentication & Password Encoding**.
+3. Utilization of **Real-Time Data Streams** via native WebSockets.
+4. Competence in writing **Complex Data Models and DTOs**.
+5. Empathy for modern, industry-standard **Responsive Frontend Experience**.
 
+<<<<<<< HEAD
 ---
 
+=======
+*All rights, implementations, and design logic authored by Harsha Adapa.*
+>>>>>>> 9b582cf ( updated some code)

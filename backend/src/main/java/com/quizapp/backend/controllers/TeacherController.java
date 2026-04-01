@@ -106,7 +106,7 @@ public class TeacherController {
         int activeStudents = 0;
         double averageScore = 0;
         
-        Map<Category, Double> categoryAccuracy = new HashMap<>();
+        Map<String, Double> categoryAccuracy = new HashMap<>();
         
         if (totalQuizzes > 0) {
             List<Long> quizIds = quizzes.stream().map(Quiz::getId).collect(Collectors.toList());
@@ -138,7 +138,7 @@ public class TeacherController {
             }
             for (Map.Entry<Category, int[]> entry : categoryStats.entrySet()) {
                 double accuracy = entry.getValue()[1] > 0 ? ((double) entry.getValue()[0] / entry.getValue()[1]) * 100.0 : 0.0;
-                categoryAccuracy.put(entry.getKey(), Math.round(accuracy * 10.0) / 10.0);
+                categoryAccuracy.put(entry.getKey().name(), Math.round(accuracy * 10.0) / 10.0);
             }
         }
         

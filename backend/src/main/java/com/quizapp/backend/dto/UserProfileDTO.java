@@ -1,7 +1,8 @@
 package com.quizapp.backend.dto;
 
-import com.quizapp.backend.models.Category;
 import java.util.Map;
+import java.util.List;
+import com.quizapp.backend.models.Badge;
 
 public class UserProfileDTO {
     private String username;
@@ -11,13 +12,15 @@ public class UserProfileDTO {
     private double averageAccuracy;
     private int level;
     private int currentStreak;
-    private Map<Category, Double> categoryAccuracy;
+    private Map<String, Double> categoryAccuracy;
+    private List<Badge> badges;
+    private String avatarUrl;
 
     // Constructors, Getters, and Setters
 
     public UserProfileDTO() {}
 
-    public UserProfileDTO(String username, String email, int totalQuizzesTaken, int totalScore, double averageAccuracy, int level, int currentStreak, Map<Category, Double> categoryAccuracy) {
+    public UserProfileDTO(String username, String email, int totalQuizzesTaken, int totalScore, double averageAccuracy, int level, int currentStreak, Map<String, Double> categoryAccuracy, List<Badge> badges, String avatarUrl) {
         this.username = username;
         this.email = email;
         this.totalQuizzesTaken = totalQuizzesTaken;
@@ -26,6 +29,8 @@ public class UserProfileDTO {
         this.level = level;
         this.currentStreak = currentStreak;
         this.categoryAccuracy = categoryAccuracy;
+        this.badges = badges;
+        this.avatarUrl = avatarUrl;
     }
 
 
@@ -43,7 +48,11 @@ public class UserProfileDTO {
     public void setLevel(int level) { this.level = level; }
     public int getCurrentStreak() { return currentStreak; }
     public void setCurrentStreak(int currentStreak) { this.currentStreak = currentStreak; }
-    public Map<Category, Double> getCategoryAccuracy() { return categoryAccuracy; }
-    public void setCategoryAccuracy(Map<Category, Double> categoryAccuracy) { this.categoryAccuracy = categoryAccuracy; }
+    public Map<String, Double> getCategoryAccuracy() { return categoryAccuracy; }
+    public void setCategoryAccuracy(Map<String, Double> categoryAccuracy) { this.categoryAccuracy = categoryAccuracy; }
+    public List<Badge> getBadges() { return badges; }
+    public void setBadges(List<Badge> badges) { this.badges = badges; }
+    public String getAvatarUrl() { return avatarUrl; }
+    public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
 }
 

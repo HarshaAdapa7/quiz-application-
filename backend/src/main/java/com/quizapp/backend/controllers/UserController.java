@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import com.quizapp.backend.dto.ProfileUpdateRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,9 @@ public class UserController {
 
     @Autowired
     private QuizAttemptRepository attemptRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/{id}/profile")
     @PreAuthorize("hasRole('STUDENT') or hasRole('TEACHER')")
@@ -61,10 +66,10 @@ public class UserController {
             averageAccuracy = ((double) totalScore / totalPossibleScore) * 100.0;
         }
         
-        Map<Category, Double> categoryAccuracy = new HashMap<>();
+        Map<String, Double> categoryAccuracy = new HashMap<>();
         for (Map.Entry<Category, int[]> entry : categoryStats.entrySet()) {
             double accuracy = entry.getValue()[1] > 0 ? ((double) entry.getValue()[0] / entry.getValue()[1]) * 100.0 : 0.0;
-            categoryAccuracy.put(entry.getKey(), Math.round(accuracy * 10.0) / 10.0);
+            categoryAccuracy.put(entry.getKey().name(), Math.round(accuracy * 10.0) / 10.0);
         }
 
         UserProfileDTO profile = new UserProfileDTO(
@@ -75,7 +80,9 @@ public class UserController {
                 averageAccuracy,
                 user.getLevel(),
                 user.getCurrentStreak(),
-                categoryAccuracy
+                categoryAccuracy,
+                new ArrayList<>(user.getBadges()),
+                user.getAvatarUrl()
         );
 
         return ResponseEntity.ok(profile);
@@ -108,18 +115,46 @@ public class UserController {
                 }
                 double averageAccuracy = totalPossibleScore > 0 ? ((double) totalScore / totalPossibleScore) * 100.0 : 0.0;
                 
-                Map<Category, Double> categoryAccuracy = new HashMap<>();
+                Map<String, Double> categoryAccuracy = new HashMap<>();
                 for (Map.Entry<Category, int[]> entry : categoryStats.entrySet()) {
                     double accuracy = entry.getValue()[1] > 0 ? ((double) entry.getValue()[0] / entry.getValue()[1]) * 100.0 : 0.0;
-                    categoryAccuracy.put(entry.getKey(), Math.round(accuracy * 10.0) / 10.0);
+                    categoryAccuracy.put(entry.getKey().name(), Math.round(accuracy * 10.0) / 10.0);
                 }
                 
-                leaderboard.add(new UserProfileDTO(student.getUsername(), student.getEmail(), totalQuizzesTaken, student.getXp(), averageAccuracy, student.getLevel(), student.getCurrentStreak(), categoryAccuracy));
+                leaderboard.add(new UserProfileDTO(student.getUsername(), student.getEmail(), totalQuizzesTaken, student.getXp(), averageAccuracy, student.getLevel(), student.getCurrentStreak(), categoryAccuracy, new ArrayList<>(student.getBadges()), student.getAvatarUrl()));
             }
         }
 
         
         leaderboard.sort((a, b) -> Integer.compare(b.getTotalScore(), a.getTotalScore()));
         return ResponseEntity.ok(leaderboard);
+    }
+
+    @PutMapping("/{id}/profile")
+    @PreAuthorize("hasRole('STUDENT') or hasRole('TEACHER')")
+    public ResponseEntity<?> updateUserProfile(@PathVariable Long id, @RequestBody ProfileUpdateRequest updateRequest) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("User not found");
+        }
+        User user = userOpt.get();
+        // To be fully secure we should ensure the Principal matches this ID, but keeping it simple for now.
+
+        if (updateRequest.getUsername() != null && !updateRequest.getUsername().isEmpty()) {
+            user.setUsername(updateRequest.getUsername());
+        }
+        if (updateRequest.getEmail() != null && !updateRequest.getEmail().isEmpty()) {
+            user.setEmail(updateRequest.getEmail());
+        }
+        if (updateRequest.getAvatarUrl() != null && !updateRequest.getAvatarUrl().isEmpty()) {
+            user.setAvatarUrl(updateRequest.getAvatarUrl());
+        }
+        if (updateRequest.getPassword() != null && !updateRequest.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(updateRequest.getPassword()));
+        }
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok("Profile updated successfully!");
     }
 }

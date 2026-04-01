@@ -8,6 +8,8 @@ import com.quizapp.backend.repositories.QuizAttemptRepository;
 import com.quizapp.backend.repositories.QuizRepository;
 import com.quizapp.backend.repositories.UserRepository;
 import com.quizapp.backend.security.UserDetailsImpl;
+import com.quizapp.backend.repositories.BadgeRepository;
+import com.quizapp.backend.models.Badge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,6 +38,9 @@ public class StudentController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BadgeRepository badgeRepository;
 
     private User getCurrentUser() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -78,7 +83,29 @@ public class StudentController {
             student.setCurrentStreak(student.getCurrentStreak() + 1);
         }
         student.setLastActiveDate(today);
-        
+
+        // Badge: First Quiz
+        if (student.getBadges().stream().noneMatch(b -> b.getName().equals("First Quiz"))) {
+            Badge firstBadge = badgeRepository.findByName("First Quiz").orElseGet(() -> badgeRepository.save(new Badge("First Quiz", "Completed your very first quiz!", "🎯")));
+            student.getBadges().add(firstBadge);
+        }
+
+        // Badge: Perfect Score (min 3 questions)
+        if (score == quiz.getQuestions().size() && quiz.getQuestions().size() >= 3) {
+            if (student.getBadges().stream().noneMatch(b -> b.getName().equals("Perfect Score"))) {
+                Badge perfectBadge = badgeRepository.findByName("Perfect Score").orElseGet(() -> badgeRepository.save(new Badge("Perfect Score", "Got 100% on a quiz", "🏆")));
+                student.getBadges().add(perfectBadge);
+            }
+        }
+
+        // Badge: Streak Master
+        if (student.getCurrentStreak() >= 3) {
+            if (student.getBadges().stream().noneMatch(b -> b.getName().equals("Streak Master"))) {
+                Badge streakBadge = badgeRepository.findByName("Streak Master").orElseGet(() -> badgeRepository.save(new Badge("Streak Master", "Maintained a 3-day streak", "🔥")));
+                student.getBadges().add(streakBadge);
+            }
+        }
+
         userRepository.save(student);
 
         return ResponseEntity.ok(savedAttempt);
