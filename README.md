@@ -1,130 +1,141 @@
-
-=======
 <div align="center">
   <img src="https://img.icons8.com/color/96/000000/learning.png" alt="Logo">
   <h1>🚀 Advanced Quiz & Gamification Platform</h1>
   <p><strong>A Full-Stack Interactive Learning Arena by Harsha Adapa</strong></p>
   <p>
     <strong>Internship Project Submission</strong><br/>
-    Developed independently by <b>Harsha Adapa</b>. Built focusing on Real-Time Multiplayer, Advanced Analytics, and Premium UI/UX.
+    Developed independently by <b>Harsha Adapa</b>. Built focusing on Real-Time Analytics, Gamification features (XP, Levels, Badges), and Premium UI/UX.
   </p>
 </div>
 
-<hr />
+## 1. Project Abstract
+The Premium Gamified Quiz Platform is a full-stack, industry-standard web application designed to revolutionize the remote learning experience. Unlike traditional testing systems, this platform employs progressive GAMIFICATION elements (XP accumulation, dynamic badges, and streak mechanics) to incentivize user engagement. Built with a highly responsive React frontend and a secure Spring Boot backend, the architecture supports distinct user roles (Student and Teacher) seamlessly, making it an optimal solution for modern educational institutions.
 
-## 📖 Overview
+## 2. Key Features
 
+### For Students (Learners)
+![Student Dashboard](./images/dashboard.png)
+*   **Gamified Dashboard:** Interactive overview featuring Total XP, Level progression, exact accuracy percentages, and Daily Streaks.
+*   **Live Assessment Engine:** Fully timed quizzes with dynamic progress bars, smooth question transitions, and confetti celebrations upon achieving perfect scores.
+*   **Performance Analytics:** Subject-specific strength charts and chronological graphs mapping historical submission performance using Recharts.
+*   **Badge System:** Earnable achievements dynamically awarded by the backend rules engine.
+*   **Glassmorphic UI:** A heavily stylized, premium user interface utilizing a modern dark mode layered with frosted glass effects.
 
-The **Advanced Quiz Platform**, engineered by **Harsha Adapa**, is a robust, full-stack web application designed to gamify learning and facilitate interactive assessments. Built with **React** on the frontend and **Spring Boot** on the backend, this platform provides an enterprise-ready experience for both **Educators** and **Students**.
+### For Teachers (Administrators)
+*   **Quiz Authoring:** Create, manage, and publish structured quizzes containing robust categorization and difficulty settings.
+*   **Analytics Hub:** Gain real-time insights into global student performance, completion rates, and average scoring matrices.
+*   **Class Observation:** Inspect specific user profiles and assess engagement levels to optimize learning. 
 
-With a premium "glassmorphism" aesthetic, the application goes beyond basic quizzes by incorporating real-time multiplayer arenas via WebSockets, an intricate gamification system (XP, Levels, Streaks, dynamic Badges, Profile Avatars), and actionable visual analytics for educators using modern charting technologies.
-
----
-
-## ✨ Core Functionalities & Features Developed by Harsha Adapa
-
-
-### Dual-Role Architecture
-- ** Teacher Portal**: 
-  - Effortless quiz builder with timed limits.
-  - Comprehensive dashboard offering deep insights into student performance.
-  - Category-wise accuracy tracking and system-wide metrics.
-  - Manage existing students and track platform traffic.
-- ** Student Portal**:
-  - Personalized dashboard tracking XP, current streaks, accuracy, and leveling.
-  - Beautiful visual charts (powered by Recharts) showing performance trends over time.
-
-### Gamification & Engagement
-- **Dynamic Leaderboard**: An advanced podium-style global leaderboard highlighting Top 3 players in gold/silver/bronze, alongside a fully ranked list.
-=======
-### 🎓 Dual-Role Architecture
-- **👨‍🏫 Teacher Portal**: 
-  - Effortless quiz builder with timed limits, automated category mapping, and difficulty scaling.
-  - Comprehensive dashboard offering deep insights into student performance.
-  - Live category-wise accuracy tracking and system-wide metrics (powered by Recharts).
-  - Manage existing students, track platform traffic, and review historical data.
-- **👩‍🎓 Student Portal**:
-  - Personalized dashboard tracking Total XP, current streaks, exact accuracy percentages, and dynamic leveling.
-  - Beautiful visual charts showing performance trends over time.
-  - Interactive Profile Settings with dynamic 3D Avatars (powered by Dicebear) and secure password resets.
-
-### 🎮 Gamification & Engagement
-- **Dynamic Leaderboard**: An advanced podium-style global leaderboard highlighting Top 3 players in gold/silver/bronze, alongside a fully ranked chronological list.
-
-- **Experience & Leveling**: Earn XP for every correct answer, leveling up as you conquer more content.
-- **Streaks & Badges**: Daily login & completion streaks to encourage consistent learning habits, with visually stunning CSS badges.
-- **Dynamic Confetti Feedback**: "Wow factor" responsive confetti drops when achieving 100% on a quiz assessment.
-
-
-###  Real-Time Multiplayer Arena
-- Built with **Spring Boot WebSockets (STOMP)**.
-=======
-### 🌐 Real-Time Multiplayer Arena
-- Built with **Spring Boot WebSockets (STOMP)** for full-duplex communication.
-
-- Teachers can initiate a "Live Quiz Event", generating a unique 4-digit room code.
-- Students join the lobby, wait for the host, and compete synchronously.
-- Live, real-time scoreboard updates broadcasted to all participants over WebSockets, complete with auto-scrolling live web-chat.
-
-
-
-## Technology Stack
-=======
-### 🎨 Premium UI/UX Aesthetic
-- **Glassmorphism**: Sleek, semi-transparent frosted-glass panels on deep, dark-mode backgrounds.
-- **Custom Split-Screen Authentication**: A stunning elite responsive split-screen Login & Registration portal featuring 3D artwork.
-- **Responsive Layouts**: 100% Mobile-first responsive grids and `@media` flexboxes to ensure beautifully scaling dashboards on iOS and Android viewports.
+### Core System Features
+![Authentication Flow](./images/auth.png)
+*   **JWT Security:** Fully encrypted password storage and stateless JSON Web Token authentication locking down protected API endpoints.
+*   **RBAC (Role-Based Access Control):** Dedicated interceptors explicitly verifying user credentials and bouncing unauthorized access to specific dashboard areas.
+*   **Responsive Metrics Validation:** Built-in CORS and cross-origin resource handling for frictionless component rendering.
 
 ---
 
-## 🛠️ Technology Stack & Architecture
+## 3. Technology Stack
 
+### Frontend (Client-Side)
+*   **Framework:** React 18 / Vite
+*   **Routing:** React Router DOM
+*   **Styling:** Vanilla CSS (Glassmorphic Design System)
+*   **Data Visualization:** Recharts (Line & Bar charts)
+*   **HTTP Client:** Axios (Custom interceptors for Bearer Tokens)
+*   **Iconography:** Lucide React
+*   **Animations:** Canvas-Confetti
 
-### Backend (Developed by Harsha Adapa)
-- **Java 17 & Spring Boot 3**: Core backend architecture for secure REST APIs.
-- **Spring Security & JWT**: Fully stateless authentication and protected role-based web routes (`@PreAuthorize`).
-- **Spring Data JPA & Hibernate**: Object-Relational Mapping (ORM) handling complex database relationships between Quizzes, Questions, Attempts, and Users.
-- **Spring WebSockets / STOMP**: Dedicated `WebSocketConfig` mapping for real-time multiplayer connections over `/live-quiz-ws`.
-- **MySQL**: Relational database managing persistence schemas.
-
-### Frontend (Developed by Harsha Adapa)
-- **React 18 & Vite**: Lightning-fast build tooling and component-based UI.
-- **React Router v6**: Protected routing with intelligent `RequireAuth` boundary logic.
-- **Recharts**: High-performance, declarative visualization charting for analytics.
-- **Lucide React**: Beautifully crafted SVG UI iconography.
-- **Axios**: Promised-based HTTP client managing persistent JWT Interceptor tokens.
-- **canvas-confetti**: Interactive visual reward systems.
-- **Vanilla CSS**: Advanced modern layout techniques achieving responsive glassmorphism securely.
+### Backend (Server-Side)
+*   **Framework:** Spring Boot 3.2+ (Java 17/21)
+*   **Security:** Spring Security & JWT (JSON Web Tokens)
+*   **ORM:** Hibernate / Spring Data JPA
+*   **Database:** MySQL Server
+*   **Transaction Management:** `@Transactional` automated bounding
+*   **Build Tool:** Maven
 
 ---
 
-## 🚀 Deployment & Setup Instructions
+## 4. Architectural Overview
+
+The application utilizes a **Three-Tier Architecture**:
+1.  **Presentation Tier:** The React Application operates asynchronously, sending RESTful HTTP requests carrying `Authorization: Bearer <token>` identifiers.
+2.  **Application Tier:** The Spring MVC dispatch forwards traffic to `Controllers` -> `Services` -> `Repositories`. Data transfers are decoupled utilizing rigid **DTOs (Data Transfer Objects)** to prevent database entity leakages.
+3.  **Data Tier:** A normalized MySQL instance storing persistent relation trees (e.g., Many-to-Many mappings for User Badges, One-to-Many mappings for Quiz Questions).
+
+---
+
+## 5. Database Schema Snapshot
+
+The Database utilizes `FetchType.LAZY` optimization to conserve memory natively, bound strictly to the `quiz_app` schema.
+*   **`users`**: Stores `id`, `username`, `password` (hashed), `role`, `xp`, `level`, `current_streak`, `last_active_date`.
+*   **`quizzes`**: Stores `id`, `title`, `teacher_id` (FK), `time_limit_minutes`, `category`, `is_published`.
+*   **`questions`**: Maps back to Quiz ID, tracks `text`, `type`, `explanation`.
+*   **`options`**: Maps back to Question ID, tracks `text`, `is_correct` boolean.
+*   **`quiz_attempts`**: Joining table capturing analytics; `user_id`, `quiz_id`, `score`, `start_time`, `end_time`.
+*   **`badges`** & **`user_badges`**: Global badge definitions and a Many-to-Many tracking table for assigning unlocked badges to specific learners.
+
+---
+
+## 6. Core API Endpoints
+
+### Authentication `/api/auth`
+*   `POST /signup`: Registers a new user with Bcrypt password encoding.
+*   `POST /signin`: Validates credentials and generates a secure JWT.
+
+### Student Flow `/api/student`
+*   `GET /quizzes`: Fetches all `isPublished=true` quizzes available to take.
+*   `POST /attempt`: Submits a graded quiz, updates XP, increments streaks, and evaluates new badge logic criteria.
+*   `GET /attempts`: Retrieves chronological history of completed tests.
+
+### Profile & Leaderboard `/api/users`
+*   `GET /{id}/profile`: Fetches aggregated UserProfileDTO comprising accuracy calculations and XP distributions.
+*   `PUT /{id}/profile`: Enables editing for Avatars, Usernames, and Emails.
+*   `GET /leaderboard`: Compiles a globally sorted list of all active participants via competitive ranking.
+
+---
+
+## 7. Local Installation & Setup Instructions
 
 ### Prerequisites
-- JDK 17+ installed.
-- Node.js (v16+) and npm installed.
-- MySQL server running locally (or hosted equivalent).
+*   Node.js (v18+)
+*   Java Development Kit (JDK 17+)
+*   MySQL Server (Running on port 3306)
 
-### 1. Database Configuration
-Ensure you have a local MySQL instance running. Create a schema matching your credentials in `backend/src/main/resources/application.properties`. Wait for Hibernate to automatically scaffold (`update`) the required tables upon boot.
+### Step 1: Database Setup
+1. Open MySQL and execute: `CREATE DATABASE quiz_app;`
+2. The schema will be auto-generated by Hibernate mapping upon the first boot.
 
-### 2. Run the Backend Server (Spring Boot)
-Open a terminal in the `backend` directory:
-```bash
-cd backend
-mvn clean install
-mvn spring-boot:run
-```
-*The REST server and WebSocket broker will initialize on `http://localhost:8080/`.*
+### Step 2: Backend Initialization
+1. Navigate to the backend directory: `cd backend`
+2. Verify `application.properties` credentials (`spring.datasource.username` & `password`).
+3. Run the Spring Boot application:
+   ```bash
+   mvn spring-boot:run
+   ```
+4. *The server will attach to `http://localhost:8080/`*
 
-### 3. Run the Frontend Client (React / Vite)
-Open a new terminal in the `frontend` directory:
-```bash
-cd frontend
-npm install
-npm run dev
-```
-*The web client will compile and launch instantly at `http://localhost:5173/`.*
+### Step 3: Frontend Initialization
+1. Open a new terminal instance and navigate to the frontend: `cd frontend`
+2. Install NodeJS dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the Vite development sever:
+   ```bash
+   npm run dev
+   ```
+4. *The UI will be accessible at `http://localhost:5173/`*
+
+---
+
+## 8. Deployment Strategy (For Cloud Hosting)
+
+When moving to a production environment, the following infrastructure replaces the local setup:
+1.  **MySQL Database** hosted on an ephemeral cloud provider (e.g. **Aiven** / **Railway**).
+2.  **Spring Boot JAR** built via `$ mvn clean package` and hosted natively on **Render.com** (with updated environmental variables).
+3.  **React Frontend** pre-compiled securely and deployed globally via CDN endpoints on **Vercel** or **Netlify**. Wait to deploy the frontend until the backend URL replaces `localhost:8080` internally.
+
+---
 
 **Submitted by:** Harsha Adapa
 **Project Type:** Full-Stack Web Development 
@@ -132,7 +143,6 @@ npm run dev
 This complete repository source code proves mastery over:
 1. **Full-Stack Application Architecture** from database schema to UI delivery.
 2. Complete implementation of **Secure JWT Authentication & Password Encoding**.
-3. Utilization of **Real-Time Data Streams** via native WebSockets.
-4. Competence in writing **Complex Data Models and DTOs**.
+3. Utilization of **Complex Relational Structures** and JPA Mapping.
+4. Competence in writing **Extensive Data Models and DTOs**.
 5. Empathy for modern, industry-standard **Responsive Frontend Experience**.
-

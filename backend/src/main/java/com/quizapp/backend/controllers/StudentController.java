@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.List;
-
 import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -48,6 +48,7 @@ public class StudentController {
     }
 
     @GetMapping("/quizzes")
+    @Transactional
     public ResponseEntity<List<Quiz>> getAvailableQuizzes() {
         return ResponseEntity.ok(quizRepository.findByIsPublishedTrue());
     }
@@ -112,6 +113,7 @@ public class StudentController {
     }
     
     @GetMapping("/attempts")
+    @Transactional
     public ResponseEntity<List<QuizAttempt>> getMyAttempts() {
         User student = getCurrentUser();
         return ResponseEntity.ok(attemptRepository.findByUserId(student.getId()));

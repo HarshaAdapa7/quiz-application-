@@ -1,0 +1,130 @@
+<html><body><h1>🎓 Premium Gamified Quiz Platform</h1>
+<p><strong>Internship Project Documentation</strong></p>
+<h2>1. Project Abstract</h2>
+<p>The Premium Gamified Quiz Platform is a full-stack, industry-standard web application designed to revolutionize the remote learning experience. Unlike traditional testing systems, this platform employs progressive GAMIFICATION elements (XP accumulation, dynamic badges, and streak mechanics) to incentivize user engagement. Built with a highly responsive React frontend and a secure Spring Boot backend, the architecture supports distinct user roles (Student and Teacher) seamlessly, making it an optimal solution for modern educational institutions.</p>
+<h2>2. Key Features</h2>
+<h3>For Students (Learners)</h3>
+<p><img src="images/dashboard.png" alt="Student Dashboard"></p>
+<ul>
+<li><strong>Gamified Dashboard:</strong> Interactive overview featuring Total XP, Level progression, Accuracy tracking, and Daily Streaks.</li>
+<li><strong>Live Assessment Engine:</strong> Fully timed quizzes with dynamic progress bars, smooth question transitions, and confetti celebrations upon achieving perfect scores.</li>
+<li><strong>Performance Analytics:</strong> Subject-specific strength charts and chronological graphs mapping historical submission performance using Recharts.</li>
+<li><strong>Badge System:</strong> Earnable achievements (&quot;First Quiz&quot;, &quot;Perfect Score&quot;, &quot;Streak Master&quot;) dynamically awarded by the backend rules engine.</li>
+<li><strong>Glassmorphic UI:</strong> A heavily stylized, premium user interface utilizing a modern dark mode layered with frosted glass effects.</li>
+</ul>
+<h3>For Teachers (Administrators)</h3>
+<ul>
+<li><strong>Quiz Authoring:</strong> Create, manage, and publish structured quizzes containing robust categorization and difficulty settings.</li>
+<li><strong>Analytics Hub:</strong> Gain real-time insights into global student performance, completion rates, and average scoring matrices.</li>
+<li><strong>Class Observation:</strong> Inspect specific user profiles and assess engagement levels to optimize learning.</li>
+</ul>
+<h3>Core System Features</h3>
+<p><img src="images/auth.png" alt="Authentication Flow"></p>
+<ul>
+<li><strong>JWT Security:</strong> Fully encrypted password storage and stateless JSON Web Token authentication locking down protected API endpoints.</li>
+<li><strong>RBAC (Role-Based Access Control):</strong> Dedicated interceptors explicitly verifying user credentials and bouncing unauthorized access to specific dashboard areas.</li>
+<li><strong>Responsive Metrics Validation:</strong> Built-in CORS and cross-origin resource handling for frictionless component rendering.</li>
+</ul>
+<hr>
+<h2>3. Technology Stack</h2>
+<h3>Frontend (Client-Side)</h3>
+<ul>
+<li><strong>Framework:</strong> React 18 / Vite</li>
+<li><strong>Routing:</strong> React Router DOM</li>
+<li><strong>Styling:</strong> Vanilla CSS (Glassmorphic Design System)</li>
+<li><strong>Data Visualization:</strong> Recharts (Line &amp; Bar charts)</li>
+<li><strong>HTTP Client:</strong> Axios (Custom interceptors for Bearer Tokens)</li>
+<li><strong>Iconography:</strong> Lucide React</li>
+<li><strong>Animations:</strong> Canvas-Confetti</li>
+</ul>
+<h3>Backend (Server-Side)</h3>
+<ul>
+<li><strong>Framework:</strong> Spring Boot 3.2+ (Java 17/21)</li>
+<li><strong>Security:</strong> Spring Security &amp; JWT (JSON Web Tokens)</li>
+<li><strong>ORM:</strong> Hibernate / Spring Data JPA</li>
+<li><strong>Database:</strong> MySQL Server</li>
+<li><strong>Transaction Management:</strong> <code>@Transactional</code> automated bounding</li>
+<li><strong>Build Tool:</strong> Maven</li>
+</ul>
+<hr>
+<h2>4. Architectural Overview</h2>
+<p>The application utilizes a <strong>Three-Tier Architecture</strong>:</p>
+<ol>
+<li><strong>Presentation Tier:</strong> The React Application operates asynchronously, sending RESTful HTTP requests carrying <code>Authorization: Bearer &lt;token&gt;</code> identifiers.</li>
+<li><strong>Application Tier:</strong> The Spring MVC dispatch forwards traffic to <code>Controllers</code> -&gt; <code>Services</code> -&gt; <code>Repositories</code>. Data transfers are decoupled utilizing rigid <strong>DTOs (Data Transfer Objects)</strong> to prevent database entity leakages.</li>
+<li><strong>Data Tier:</strong> A normalized MySQL instance storing persistent relation trees (e.g., Many-to-Many mappings for User Badges, One-to-Many mappings for Quiz Questions).</li>
+</ol>
+<hr>
+<h2>5. Database Schema Snapshot</h2>
+<p>The Database utilizes <code>FetchType.LAZY</code> optimization to conserve memory natively, bound strictly to the <code>quiz_app</code> schema.</p>
+<ul>
+<li><strong><code>users</code></strong>: Stores <code>id</code>, <code>username</code>, <code>password</code> (hashed), <code>role</code>, <code>xp</code>, <code>level</code>, <code>current_streak</code>, <code>last_active_date</code>.</li>
+<li><strong><code>quizzes</code></strong>: Stores <code>id</code>, <code>title</code>, <code>teacher_id</code> (FK), <code>time_limit_minutes</code>, <code>category</code>, <code>is_published</code>.</li>
+<li><strong><code>questions</code></strong>: Maps back to Quiz ID, tracks <code>text</code>, <code>type</code>, <code>explanation</code>.</li>
+<li><strong><code>options</code></strong>: Maps back to Question ID, tracks <code>text</code>, <code>is_correct</code> boolean.</li>
+<li><strong><code>quiz_attempts</code></strong>: Joining table capturing analytics; <code>user_id</code>, <code>quiz_id</code>, <code>score</code>, <code>start_time</code>, <code>end_time</code>.</li>
+<li><strong><code>badges</code></strong> &amp; <strong><code>user_badges</code></strong>: Global badge definitions and a Many-to-Many tracking table for assigning unlocked badges to specific learners.</li>
+</ul>
+<hr>
+<h2>6. Core API Endpoints</h2>
+<h3>Authentication <code>/api/auth</code></h3>
+<ul>
+<li><code>POST /signup</code>: Registers a new user with Bcrypt password encoding.</li>
+<li><code>POST /signin</code>: Validates credentials and generates a secure JWT.</li>
+</ul>
+<h3>Student Flow <code>/api/student</code></h3>
+<ul>
+<li><code>GET /quizzes</code>: Fetches all <code>isPublished=true</code> quizzes available to take.</li>
+<li><code>POST /attempt</code>: Submits a graded quiz, updates XP, increments streaks, and evaluates new badge logic criteria.</li>
+<li><code>GET /attempts</code>: Retrieves chronological history of completed tests.</li>
+</ul>
+<h3>Profile &amp; Leaderboard <code>/api/users</code></h3>
+<ul>
+<li><code>GET /{id}/profile</code>: Fetches aggregated UserProfileDTO comprising accuracy calculations and XP distributions.</li>
+<li><code>PUT /{id}/profile</code>: Enables editing for Avatars, Usernames, and Emails.</li>
+<li><code>GET /leaderboard</code>: Compiles a globally sorted list of all active participants via competitive ranking.</li>
+</ul>
+<hr>
+<h2>7. Local Installation &amp; Setup Instructions</h2>
+<h3>Prerequisites</h3>
+<ul>
+<li>Node.js (v18+)</li>
+<li>Java Development Kit (JDK 17+)</li>
+<li>MySQL Server (Running on port 3306)</li>
+</ul>
+<h3>Step 1: Database Setup</h3>
+<ol>
+<li>Open MySQL and execute: <code>CREATE DATABASE quiz_app;</code></li>
+<li>The schema will be auto-generated by Hibernate mapping upon the first boot.</li>
+</ol>
+<h3>Step 2: Backend Initialization</h3>
+<ol>
+<li>Navigate to the backend directory: <code>cd backend</code></li>
+<li>Verify <code>application.properties</code> credentials (<code>spring.datasource.username</code> &amp; <code>password</code>).</li>
+<li>Run the Spring Boot application:<pre><code class="language-bash">mvn spring-boot:run
+</code></pre>
+</li>
+<li><em>The server will attach to <code>http://localhost:8080/</code></em></li>
+</ol>
+<h3>Step 3: Frontend Initialization</h3>
+<ol>
+<li>Open a new terminal instance and navigate to the frontend: <code>cd frontend</code></li>
+<li>Install NodeJS dependencies:<pre><code class="language-bash">npm install
+</code></pre>
+</li>
+<li>Start the Vite development sever:<pre><code class="language-bash">npm run dev
+</code></pre>
+</li>
+<li><em>The UI will be accessible at <code>http://localhost:5173/</code></em></li>
+</ol>
+<hr>
+<h2>8. Deployment Strategy (For Cloud Hosting)</h2>
+<p>When moving to a production environment, the following infrastructure replaces the local setup:</p>
+<ol>
+<li><strong>MySQL Database</strong> hosted on an ephemeral cloud provider (e.g. <strong>Aiven</strong> / <strong>Railway</strong>).</li>
+<li><strong>Spring Boot JAR</strong> built via <code>$ mvn clean package</code> and hosted natively on <strong>Render.com</strong> (with updated environmental variables).</li>
+<li><strong>React Frontend</strong> pre-compiled securely and deployed globally via CDN endpoints on <strong>Vercel</strong> or <strong>Netlify</strong>. Wait to deploy the frontend until the backend URL replaces <code>localhost:8080</code> internally.</li>
+</ol>
+<hr>
+<p><em>Documentation compiled successfully for Internship Portfolio Review.</em></p>
+</body></html>

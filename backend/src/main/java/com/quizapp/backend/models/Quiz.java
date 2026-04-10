@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.quizapp.backend.models.Category;
 import com.quizapp.backend.models.DifficultyLevel;
 
 
 @Entity
 @Table(name = "quizzes")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

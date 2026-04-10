@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.quizapp.backend.dto.ProfileUpdateRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,8 @@ public class UserController {
 
     @GetMapping("/{id}/profile")
     @PreAuthorize("hasRole('STUDENT') or hasRole('TEACHER')")
-    public ResponseEntity<?> getUserProfile(@PathVariable Long id) {
+    @Transactional
+    public ResponseEntity<?> getUserProfile(@PathVariable("id") Long id) {
         Optional<User> userOpt = userRepository.findById(id);
         if (userOpt.isEmpty()) {
             return ResponseEntity.badRequest().body("User not found");
@@ -50,14 +52,17 @@ public class UserController {
         Map<Category, int[]> categoryStats = new HashMap<>();
 
         for (QuizAttempt attempt : attempts) {
-            totalScore += attempt.getScore();
-            totalPossibleScore += attempt.getTotalQuestions();
+            int score = attempt.getScore() != null ? attempt.getScore() : 0;
+            int questionsCount = attempt.getTotalQuestions() != null ? attempt.getTotalQuestions() : 0;
+
+            totalScore += score;
+            totalPossibleScore += questionsCount;
             
             if (attempt.getQuiz() != null && attempt.getQuiz().getCategory() != null) {
                 Category cat = attempt.getQuiz().getCategory();
                 categoryStats.putIfAbsent(cat, new int[]{0, 0});
-                categoryStats.get(cat)[0] += attempt.getScore();
-                categoryStats.get(cat)[1] += attempt.getTotalQuestions();
+                categoryStats.get(cat)[0] += score;
+                categoryStats.get(cat)[1] += questionsCount;
             }
         }
 
@@ -81,7 +86,7 @@ public class UserController {
                 user.getLevel(),
                 user.getCurrentStreak(),
                 categoryAccuracy,
-                new ArrayList<>(user.getBadges()),
+                new ArrayList<>(user.getBadges() != null ? user.getBadges() : new java.util.HashSet<>()),
                 user.getAvatarUrl()
         );
 
@@ -90,6 +95,7 @@ public class UserController {
     
     // Global Leaderboard
     @GetMapping("/leaderboard")
+    @Transactional
     public ResponseEntity<List<UserProfileDTO>> getLeaderboard() {
         List<User> students = userRepository.findAll(); // Should filter by STUDENT role
         List<UserProfileDTO> leaderboard = new ArrayList<>();
@@ -103,14 +109,17 @@ public class UserController {
                 Map<Category, int[]> categoryStats = new HashMap<>();
                 
                 for (QuizAttempt attempt : attempts) {
-                    totalScore += attempt.getScore();
-                    totalPossibleScore += attempt.getTotalQuestions();
+                    int score = attempt.getScore() != null ? attempt.getScore() : 0;
+                    int questionsCount = attempt.getTotalQuestions() != null ? attempt.getTotalQuestions() : 0;
+                    
+                    totalScore += score;
+                    totalPossibleScore += questionsCount;
                     
                     if (attempt.getQuiz() != null && attempt.getQuiz().getCategory() != null) {
                         Category cat = attempt.getQuiz().getCategory();
                         categoryStats.putIfAbsent(cat, new int[]{0, 0});
-                        categoryStats.get(cat)[0] += attempt.getScore();
-                        categoryStats.get(cat)[1] += attempt.getTotalQuestions();
+                        categoryStats.get(cat)[0] += score;
+                        categoryStats.get(cat)[1] += questionsCount;
                     }
                 }
                 double averageAccuracy = totalPossibleScore > 0 ? ((double) totalScore / totalPossibleScore) * 100.0 : 0.0;
@@ -121,7 +130,7 @@ public class UserController {
                     categoryAccuracy.put(entry.getKey().name(), Math.round(accuracy * 10.0) / 10.0);
                 }
                 
-                leaderboard.add(new UserProfileDTO(student.getUsername(), student.getEmail(), totalQuizzesTaken, student.getXp(), averageAccuracy, student.getLevel(), student.getCurrentStreak(), categoryAccuracy, new ArrayList<>(student.getBadges()), student.getAvatarUrl()));
+                leaderboard.add(new UserProfileDTO(student.getUsername(), student.getEmail(), totalQuizzesTaken, student.getXp(), averageAccuracy, student.getLevel(), student.getCurrentStreak(), categoryAccuracy, new ArrayList<>(student.getBadges() != null ? student.getBadges() : new java.util.HashSet<>()), student.getAvatarUrl()));
             }
         }
 
@@ -132,7 +141,8 @@ public class UserController {
 
     @PutMapping("/{id}/profile")
     @PreAuthorize("hasRole('STUDENT') or hasRole('TEACHER')")
-    public ResponseEntity<?> updateUserProfile(@PathVariable Long id, @RequestBody ProfileUpdateRequest updateRequest) {
+    @Transactional
+    public ResponseEntity<?> updateUserProfile(@PathVariable("id") Long id, @RequestBody ProfileUpdateRequest updateRequest) {
         Optional<User> userOpt = userRepository.findById(id);
         if (userOpt.isEmpty()) {
             return ResponseEntity.badRequest().body("User not found");
